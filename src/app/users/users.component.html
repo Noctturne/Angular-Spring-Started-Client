@@ -1,0 +1,17 @@
+<main class="users">
+  <div class="col-12 offset-md-3 col-md-6 text-center">
+    <button type="button" class="btn btn-dark border-0 btn-sm m-4" [routerLink]="['/users/form']"><strong> New User </strong></button>
+    <p class="text-center" *ngIf="users?.length == 0"> No users to show </p>
+      <div class="user p-2 border border-1 rounded" *ngFor="let user of users">
+          <small> {{user.id}} </small>
+          <p class="text-secondary"> <strong>{{user.username}}</strong> </p>
+          <p class="text-secondary">{{user.email}}</p>
+          <p class="text-secondary">{{user.category.name}}</p>
+          <div class="actions">
+            <button type="button" class="btn btn-outline-dark border-0 btn-sm mx-2" 
+              [routerLink]="['/users/form', user.id]"><strong> <i class="fas fa-edit"></i> </strong></button>
+            <button type="button" class="btn btn-outline-dark border-0 btn-sm mx-2" (click)="delete(user)"><strong> <i class="fas fa-times"></i></strong></button>
+          </div>
+      </div>
+  </div>
+</main>

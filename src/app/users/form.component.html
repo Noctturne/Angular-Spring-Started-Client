@@ -1,0 +1,39 @@
+<div class="row m-2 text-center">
+  <form class="col-12 offset-md-3 col-md-6" #userForm="ngForm">
+    <div class="mb-3">
+        <label for="username" class="form-label"> Username </label>
+        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username" required minlength="4" #username="ngModel">
+        <div class="m-2" *ngIf="username.invalid && (username.touched)">
+          <div *ngIf="username.errors.required">
+              <small> ** Username is required</small>
+          </div>
+          <div *ngIf="username.errors.required">
+              <small>** Username must be at least 4 characters long</small> 
+          </div>
+        </div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label"> Email address </label>
+      <input type="email" class="form-control" id="email"  name="email" [(ngModel)]="user.email" required email #email="ngModel">
+      <div class="m-2" *ngIf="email.invalid && (email.touched)">
+        <div *ngIf="email.errors.required">
+          <small> ** Email is required</small>
+        </div>
+        <div *ngIf="email.errors.email">
+          <small>* Use a valid email</small>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label"> Category </label>
+      <select [compareWith]="compareCategory" class="form-control" name="category" [(ngModel)]="user.category">
+        <option [ngValue]="undefined">--- Select a category ---</option>
+        <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-dark" (click) = "create()" *ngIf="!user.id else elseUpdate" [disabled]="!userForm.form.valid"> Create </button>
+    <ng-template #elseUpdate>
+      <button type="submit" class="btn btn-dark" (click) = "update()" [disabled]="!userForm.form.valid"> Edit </button>
+    </ng-template>
+  </form>
+</div>
